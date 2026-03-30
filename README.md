@@ -23,18 +23,18 @@ PostgreSQL  MongoDB  Redis
 | Backend  | Python + FastAPI    | —              |
 | BD Relacional | PostgreSQL     | Supabase       |
 | BD NoSQL | MongoDB             | MongoDB Atlas  |
-| Cache    | Redis               | Upstash Redis  |
+| Cache (NoSQL) | Redis          | Upstash Redis  |
 
 ## Como rodar
 
 ### 1. Criar contas gratuitas
 
 - **Supabase** (PostgreSQL): https://supabase.com
-  - Crie um projeto → copie a URL e Anon Key projetobd123
+  - Crie um projeto → copie a URL e Anon Key
   - No SQL Editor, execute o script `backend/database/schema.sql`
 
 - **MongoDB Atlas**: https://www.mongodb.com/atlas
-  - Crie um cluster gratuito (M0)
+  - Crie um cluster gratuito
   - Crie um banco chamado `hobby_library`
   - Copie a connection string
 
@@ -67,8 +67,6 @@ uvicorn main:app --reload
 
 Acesse http://localhost:8000 para usar a aplicação.
 
-A documentação da API fica em http://localhost:8000/docs (Swagger automático do FastAPI).
-
 ## Endpoints da API
 
 | Método | Rota | Descrição |
@@ -85,7 +83,7 @@ A documentação da API fica em http://localhost:8000/docs (Swagger automático 
 ## Como funciona o cache
 
 Quando o usuário lista seus hobbies:
-1. O backend verifica se existe no **Redis** (cache)
+1. O backend verifica se existe no **Redis**
 2. Se sim → retorna do cache (resposta marcada como `⚡ cache`)
 3. Se não → busca no **MongoDB** e salva no Redis por 5 minutos
 4. Quando um hobby é criado, editado ou excluído → cache é invalidado
