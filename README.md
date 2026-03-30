@@ -1,7 +1,5 @@
 # Hobby Library 📚
 
-Biblioteca pessoal de hobbies com backend em FastAPI e 3 bancos de dados.
-
 ## Arquitetura
 
 ```
