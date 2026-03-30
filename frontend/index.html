@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hobby Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 Hobby Library</h1>
+        <p class="subtitle">Sua biblioteca pessoal de hobbies</p>
+    </header>
+
+    <!-- Login / Registro -->
+    <section id="auth-section" class="card">
+        <h2>Entrar ou Registrar</h2>
+        <div class="form-group">
+            <input type="text" id="input-username" placeholder="Nome de usuário">
+            <input type="email" id="input-email" placeholder="E-mail">
+            <button id="btn-login" onclick="loginOrRegister()">Entrar</button>
+        </div>
+        <div id="auth-error" class="error hidden"></div>
+    </section>
+
+    <!-- Painel do Usuário -->
+    <section id="user-section" class="hidden">
+        <div class="user-bar">
+            <span id="user-info"></span>
+            <button class="btn-secondary" onclick="logout()">Sair</button>
+        </div>
+
+        <!-- Adicionar Hobby -->
+        <div class="card">
+            <h2>Adicionar Hobby</h2>
+            <div class="form-group">
+                <input type="text" id="hobby-name" placeholder="Nome do hobby *">
+                <input type="text" id="hobby-category" placeholder="Categoria (opcional)">
+            </div>
+
+            <div id="custom-fields">
+                <h3>Campos personalizados</h3>
+                <div id="fields-container"></div>
+                <button class="btn-secondary" onclick="addField()">+ Adicionar campo</button>
+            </div>
+
+            <button id="btn-add-hobby" onclick="addHobby()">Salvar Hobby</button>
+        </div>
+
+        <!-- Lista de Hobbies -->
+        <div class="card">
+            <div class="hobbies-header">
+                <h2>Meus Hobbies</h2>
+                <span id="hobbies-source" class="badge"></span>
+            </div>
+            <div id="hobbies-list">
+                <p class="empty-state">Nenhum hobby cadastrado ainda.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Modal de Edição -->
+<div id="edit-modal" class="modal hidden">
+    <div class="modal-content card">
+        <h2>Editar Hobby</h2>
+        <div class="form-group">
+            <input type="text" id="edit-hobby-name" placeholder="Nome do hobby">
+            <input type="text" id="edit-hobby-category" placeholder="Categoria">
+        </div>
+        <div id="edit-fields-container"></div>
+        <button class="btn-secondary" onclick="addEditField()">+ Adicionar campo</button>
+        <div class="modal-actions">
+            <button onclick="saveEdit()">Salvar</button>
+            <button class="btn-secondary" onclick="closeEditModal()">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
