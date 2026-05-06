@@ -1,4 +1,4 @@
-# Hobby Library 📚
+# Hobby Library
 
 ## Arquitetura
 

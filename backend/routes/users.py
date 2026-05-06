@@ -9,7 +9,7 @@ router = APIRouter(prefix="/api/users", tags=["Users"])
 def register_user(payload: UserCreate):
     existing = get_user_by_email(payload.email)
     if existing:
-        return existing  # retorna o usuário já existente
+        return existing
     user = create_user(payload.username, payload.email)
     return user
 

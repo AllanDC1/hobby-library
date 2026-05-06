@@ -16,5 +16,4 @@ app.add_middleware(
 app.include_router(users_router)
 app.include_router(hobbies_router)
 
-# Serve o frontend como arquivos estáticos
 app.mount("/", StaticFiles(directory="../frontend", html=True), name="frontend")

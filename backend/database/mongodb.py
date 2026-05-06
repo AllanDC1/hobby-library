@@ -53,7 +53,6 @@ async def delete_hobby(hobby_id: str) -> bool:
 
 
 def _serialize(doc: dict) -> dict:
-    """Converte ObjectId e datetime para strings serializáveis."""
     serialized = {}
     for key, value in doc.items():
         if isinstance(value, ObjectId):

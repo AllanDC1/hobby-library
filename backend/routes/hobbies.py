@@ -20,7 +20,7 @@ async def add_hobby(user_id: str, payload: HobbyCreate):
     hobby_data = {
         "name": payload.name,
         "category": payload.category,
-        **payload.fields  # campos livres do usuário
+        **payload.fields
     }
     hobby = await create_hobby(user_id, hobby_data)
     invalidate_hobbies_cache(user_id)
@@ -29,12 +29,10 @@ async def add_hobby(user_id: str, payload: HobbyCreate):
 
 @router.get("")
 async def list_hobbies(user_id: str):
-    # Tenta buscar do cache Redis primeiro
     cached = get_cached_hobbies(user_id)
     if cached is not None:
         return {"source": "cache", "hobbies": cached}
 
-    # Se não tem cache, busca do MongoDB
     hobbies = await get_hobbies_by_user(user_id)
     set_cached_hobbies(user_id, hobbies)
     return {"source": "database", "hobbies": hobbies}

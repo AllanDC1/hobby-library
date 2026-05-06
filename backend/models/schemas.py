@@ -9,7 +9,7 @@ class UserCreate(BaseModel):
 class HobbyCreate(BaseModel):
     name: str
     category: str | None = None
-    fields: dict = {}  # campos livres definidos pelo usuário
+    fields: dict = {}
 
 
 class HobbyUpdate(BaseModel):
