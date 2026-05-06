@@ -24,8 +24,3 @@ def get_user_by_email(email: str) -> dict | None:
     if result.data:
         return result.data[0]
     return None
-
-
-def list_users() -> list[dict]:
-    result = supabase.table("users").select("*").order("created_at", desc=True).execute()
-    return result.data
