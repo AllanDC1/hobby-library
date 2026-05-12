@@ -1,17 +1,34 @@
 # Hobby Library
 
+Sistema web para cadastro de usuarios e hobbies, com suporte a campos dinâmicos por hobby e cache para melhorar desempenho das consultas.
+
+## Tema escolhido
+
+O tema do projeto é uma "biblioteca de hobbies" pessoal:
+
+- O usuario cria sua conta e registra hobbies.
+- Cada hobby pode ter atributos diferentes (exemplo: culinaria com receita favorita; ciclismo com distancia media).
+- O sistema permite listar, detalhar, editar e remover hobbies.
+- A ideia é ter um local para agrupar todos seus hobbies de maneira flexível
+
+
 ## Arquitetura
 
 ```
-Frontend (HTML/CSS/JS)
-         │
-    FastAPI (Python)
-    ┌────┼────────┐
-    │    │        │
+   Frontend (HTML/CSS/JS)
+              |
+     FastAPI (Python)
+    +---------+--------+
+    |         |        |
 PostgreSQL  MongoDB  Redis
 (Supabase) (Atlas)  (Upstash)
   Usuários  Hobbies   Cache
 ```
+
+- O PostgreSQL (Supabase) foi escolhido para armazenar os usuários pela consistencia dos dados e facilitar validações como a unicidade de e-mails
+- O MongoDB (Atlas) foi fundamental para a flexibilização dos campos dos hobbies por ser schemaless
+- E o Redis (Upstash) foi usado para cache, acelerando a listagem de hobbies para o usuário
+
 
 ## Stack
 
@@ -25,10 +42,14 @@ PostgreSQL  MongoDB  Redis
 
 ## Como rodar
 
+### 0. Requisitos
+
+- Python 3.14
+
 ### 1. Criar contas gratuitas
 
 - **Supabase** (PostgreSQL): https://supabase.com
-  - Crie um projeto → copie a URL e Anon Key
+  - Crie um projeto → copie a URL e Publishable Key
   - No SQL Editor, execute o script `backend/database/schema.sql`
 
 - **MongoDB Atlas**: https://www.mongodb.com/atlas
@@ -69,12 +90,10 @@ Acesse http://localhost:8000 para usar a aplicação.
 
 | Método | Rota | Descrição |
 |--------|------|-----------|
-| POST   | `/api/users` | Criar/login de usuário |
-| GET    | `/api/users` | Listar todos os usuários |
-| GET    | `/api/users/{id}` | Detalhes de um usuário |
+| POST   | `/api/users` | Criar/login de usuario |
 | POST   | `/api/users/{id}/hobbies` | Adicionar hobby |
 | GET    | `/api/users/{id}/hobbies` | Listar hobbies (com cache) |
-| GET    | `/api/users/{id}/hobbies/{hobby_id}` | Detalhe de um hobby |
+| GET    | `/api/users/{id}/hobbies/{hobby_id}` | Detalhes de um hobby |
 | PUT    | `/api/users/{id}/hobbies/{hobby_id}` | Editar hobby |
 | DELETE | `/api/users/{id}/hobbies/{hobby_id}` | Remover hobby |
 
@@ -101,5 +120,3 @@ Quando o usuário lista seus hobbies:
     "updated_at": "2026-03-30T..."
 }
 ```
-
-O ponto principal é que **cada hobby pode ter campos completamente diferentes** — isso é possível graças ao MongoDB ser schemaless.
