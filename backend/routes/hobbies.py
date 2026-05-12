@@ -23,18 +23,18 @@ async def add_hobby(user_id: str, payload: HobbyCreate):
         **payload.fields
     }
     hobby = await create_hobby(user_id, hobby_data)
-    invalidate_hobbies_cache(user_id)
+    await invalidate_hobbies_cache(user_id)
     return hobby
 
 
 @router.get("")
 async def list_hobbies(user_id: str):
-    cached = get_cached_hobbies(user_id)
+    cached = await get_cached_hobbies(user_id)
     if cached is not None:
         return {"source": "cache", "hobbies": cached}
 
     hobbies = await get_hobbies_by_user(user_id)
-    set_cached_hobbies(user_id, hobbies)
+    await set_cached_hobbies(user_id, hobbies)
     return {"source": "database", "hobbies": hobbies}
 
 
@@ -61,7 +61,7 @@ async def edit_hobby(user_id: str, hobby_id: str, payload: HobbyUpdate):
         update_data.update(payload.fields)
 
     hobby = await update_hobby(hobby_id, update_data)
-    invalidate_hobbies_cache(user_id)
+    await invalidate_hobbies_cache(user_id)
     return hobby
 
 
@@ -72,5 +72,5 @@ async def remove_hobby(user_id: str, hobby_id: str):
         raise HTTPException(status_code=404, detail="Hobby não encontrado")
 
     await delete_hobby(hobby_id)
-    invalidate_hobbies_cache(user_id)
+    await invalidate_hobbies_cache(user_id)
     return {"message": "Hobby removido com sucesso"}
